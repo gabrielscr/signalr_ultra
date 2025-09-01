@@ -9,6 +9,8 @@ import 'core/domain/interfaces/protocol_interface.dart';
 import 'core/domain/interfaces/retry_interface.dart';
 import 'core/domain/interfaces/observability_interface.dart';
 import 'utils/platform_compatibility.dart';
+import 'utils/web_http_client.dart' as web;
+import 'package:flutter/foundation.dart';
 
 /// Ultra power SignalR client with auto-healing and zero maintenance
 class SignalRClient implements ConnectionRepository {
@@ -318,41 +320,71 @@ class SignalRClient implements ConnectionRepository {
         'negotiationUrl': negotiationUrl,
       });
 
-      // Create HTTP client
-      final client = await PlatformCompatibility.createHttpClient();
-      
-      try {
-        // Create request
-        final request = await client.postUrl(Uri.parse(negotiationUrl));
+      // Use web-specific implementation for Flutter Web
+      if (kIsWeb) {
+        _observability.log(LogLevel.info, 'Using web-specific HTTP client');
         
-        // Add headers
-        request.headers['Content-Type'] = 'application/json';
-        if (headers != null) {
-          headers.forEach((key, value) {
-            request.headers[key] = value;
-          });
-        }
+        final negotiationData = await web.WebHttpClient.post(
+          negotiationUrl,
+          headers: headers,
+          body: '{}',
+          timeout: const Duration(seconds: 10),
+        );
         
-        // Send empty body
-        request.addString('{}');
-        
-        // Get response
-        final response = await request.close();
-        final responseBody = await response.bodyText.join();
-        
-        _observability.log(LogLevel.info, 'Negotiation response received', {
-          'statusCode': response.statusCode,
-          'responseBody': responseBody,
+        _observability.log(LogLevel.info, 'Web negotiation completed', {
+          'connectionId': negotiationData['connectionId'],
         });
         
-        if (response.statusCode == 200) {
-          final negotiationData = jsonDecode(responseBody) as Map<String, dynamic>;
-          return negotiationData;
-        } else {
-          throw Exception('Negotiation failed with status ${response.statusCode}: $responseBody');
+        return negotiationData;
+      } else {
+        // Use platform compatibility for native platforms
+        final client = await PlatformCompatibility.createHttpClient();
+        
+        try {
+          // Create request
+          final request = await client.postUrl(Uri.parse(negotiationUrl));
+          
+          // Add headers
+          request.headers['Content-Type'] = 'application/json';
+          if (headers != null) {
+            headers.forEach((key, value) {
+              request.headers[key] = value;
+            });
+          }
+          
+          // Send empty body
+          request.addString('{}');
+          
+          // Get response with timeout
+          final response = await request.close().timeout(
+            const Duration(seconds: 10),
+            onTimeout: () {
+              throw TimeoutException('Negotiation request timed out after 10 seconds');
+            },
+          );
+          
+          // Read response body with timeout
+          final responseBody = await response.bodyText.join().timeout(
+            const Duration(seconds: 5),
+            onTimeout: () {
+              throw TimeoutException('Response body read timed out after 5 seconds');
+            },
+          );
+          
+          _observability.log(LogLevel.info, 'Negotiation response received', {
+            'statusCode': response.statusCode,
+            'responseBody': responseBody,
+          });
+          
+          if (response.statusCode == 200) {
+            final negotiationData = jsonDecode(responseBody) as Map<String, dynamic>;
+            return negotiationData;
+          } else {
+            throw Exception('Negotiation failed with status ${response.statusCode}: $responseBody');
+          }
+        } finally {
+          client.close();
         }
-      } finally {
-        client.close();
       }
     } catch (e) {
       _observability.logError('Negotiation failed', e);

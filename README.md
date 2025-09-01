@@ -861,7 +861,7 @@ void main() {
 - ✅ Connection pooling
 - ✅ Testes abrangentes
 
-### v2.1.0 (Q2 2024) 🔄
+### v2.1.0 (Q2 2025) 🔄
 
 - 🔄 Protocolo MessagePack completo
 - 🔄 Streaming bidirecional
@@ -871,7 +871,7 @@ void main() {
 - 🔄 Distributed tracing
 - 🔄 Performance benchmarks
 
-### v2.2.0 (Q3 2024) 📋
+### v2.2.0 (Q3 2025) 📋
 
 - [ ] GraphQL integration
 - [ ] gRPC support
@@ -880,7 +880,7 @@ void main() {
 - [ ] Multi-region failover
 - [ ] Real-time analytics dashboard
 
-### v3.0.0 (Q4 2024) 🎯
+### v3.0.0 (Q4 2025) 🎯
 
 - [ ] Quantum-safe encryption
 - [ ] Blockchain integration
@@ -989,7 +989,7 @@ Este projeto está licenciado sob a **MIT License** - veja o arquivo [LICENSE](L
 ```
 MIT License
 
-Copyright (c) 2024 Gabriel Rocha
+Copyright (c) 2025 Gabriel Rocha
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
