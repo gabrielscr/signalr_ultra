@@ -1,0 +1,44 @@
+name: signalr_ultra
+description: Ultra power SignalR client for Flutter with zero maintenance, auto-healing, and maximum performance
+version: 2.0.0
+homepage: https://github.com/grtech/signalr_ultra
+
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+  flutter: ">=3.10.0"
+
+dependencies:
+  # Crypto for secure connections
+  crypto: ^3.0.6
+  
+  # Functional programming - Either para error handling
+  dartz: ^0.10.1
+  
+  # HTTP client - Dio é mais robusto que http
+  dio: ^5.9.0
+  
+  flutter:
+    sdk: flutter
+  
+  # Retry policies with exponential backoff
+  retry: ^3.1.2
+  
+  # Time utilities
+  time: ^2.0.0
+  
+  # WebSocket - vamos usar o mais estável
+  web_socket_channel: ^3.0.3
+
+dev_dependencies:
+  # Documentation
+  dartdoc: ^8.3.4
+  
+  flutter_test:
+    sdk: flutter
+  
+  # Testing
+  mocktail: ^1.0.3
+  test: ^1.26.2
+
+flutter:
+  # No assets needed for this library

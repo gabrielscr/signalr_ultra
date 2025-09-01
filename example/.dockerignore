@@ -1,0 +1,38 @@
+# Flutter
+lib/
+android/
+ios/
+pubspec.yaml
+pubspec.lock
+.dart_tool/
+build/
+*.iml
+
+# .NET
+**/bin/
+**/obj/
+**/*.user
+**/*.suo
+**/*.cache
+**/*.log
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Git
+.git/
+.gitignore
+
+# Documentation
+README.md
+*.md
+
+# Scripts
+*.sh

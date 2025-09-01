@@ -1,0 +1,102 @@
+analyzer:
+  exclude:
+    - "**/*.g.dart"
+    - "**/*.freezed.dart"
+    - "example/**"
+    - "test/**"
+
+linter:
+  rules:
+    # Prefer relative imports
+    prefer_relative_imports: true
+
+    # Prefer const constructors
+    prefer_const_constructors: true
+    prefer_const_constructors_in_immutables: true
+    prefer_const_declarations: true
+    prefer_const_literals_to_create_immutables: true
+
+    # Prefer final fields
+    prefer_final_fields: true
+    prefer_final_locals: true
+
+    # Prefer single quotes
+    prefer_single_quotes: true
+
+    # Avoid unnecessary containers
+    avoid_unnecessary_containers: true
+
+    # Avoid print statements
+    avoid_print: true
+
+    # Prefer collection if
+    prefer_collection_literals: true
+    prefer_if_null_operators: true
+    prefer_is_empty: true
+    prefer_is_not_empty: true
+
+    # Prefer contains
+    prefer_contains: true
+
+    # Prefer for in
+    prefer_for_elements_to_map_fromIterable: true
+    prefer_iterable_whereType: true
+
+    # Prefer spread collections
+    prefer_spread_collections: true
+
+    # Prefer expression function bodies
+    prefer_expression_function_bodies: true
+
+    # Prefer null aware operators
+    prefer_null_aware_operators: true
+
+    # Prefer void to return type
+    prefer_void_to_null: true
+
+    # Prefer assert in initializer lists
+    prefer_asserts_in_initializer_lists: true
+
+    # Prefer foreach
+    prefer_foreach: true
+
+    # Prefer generic function type aliases
+    prefer_generic_function_type_aliases: true
+
+    # Prefer initializing formal parameters
+    prefer_initializing_formals: true
+
+    # Prefer int literals
+    prefer_int_literals: true
+
+    # Prefer is not operator
+    prefer_is_not_operator: true
+
+    # Prefer match file name
+
+    # Prefer moving to and from
+    prefer_mixin: true
+
+    # Sort child properties
+    sort_child_properties_last: true
+
+    # Sort constructors first
+    sort_constructors_first: true
+
+    # Sort pub dependencies
+    sort_pub_dependencies: true
+
+    # Type annotate public APIs
+    type_annotate_public_apis: true
+
+    # Unawaited futures
+    unawaited_futures: true
+
+    # Use function type syntax for parameters
+    use_function_type_syntax_for_parameters: true
+
+    # Use rethrow
+    use_rethrow_when_possible: true
+
+    # Use string buffers
+    use_string_buffers: true
